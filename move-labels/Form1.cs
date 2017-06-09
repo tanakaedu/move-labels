@@ -24,6 +24,7 @@ namespace move_labels
             // label1.Left = label1.Left + vx;
             label1.Left += vx;
             label1.Top += vy;
+
             if (label1.Left < 0) {
                 vx = Math.Abs(vx);
             }
