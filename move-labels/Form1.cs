@@ -35,6 +35,10 @@ namespace move_labels
             {
                 vx = -10;
             }
+            if (label1.Top > 357)
+            {
+                vy = -10;
+            }
         }
     }
 }
