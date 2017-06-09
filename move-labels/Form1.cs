@@ -31,6 +31,10 @@ namespace move_labels
             {
                 vy = 10;
             }
+            if (label1.Left > 477)
+            {
+                vx = -10;
+            }
         }
     }
 }
