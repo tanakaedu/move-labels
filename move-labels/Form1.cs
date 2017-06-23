@@ -12,12 +12,9 @@ namespace move_labels
 {
     public partial class Form1 : Form
     {
-        int vx = -15;
-        int vy = -15;
-        int vx6 = -15;
-        int vy6 = -15;
-        int vx7 = -15;
-        int vy7 = -15;
+        // 0～2までで3つの値をもてる
+        int[] vx = new int[3];
+        int[] vy = new int[3];
         int iTime = 0;
         private static Random rand = new Random();
 
@@ -47,63 +44,63 @@ namespace move_labels
             
             
             // label1.Left = label1.Left + vx;
-            label1.Left += vx;
-            label1.Top += vy;
-            label6.Left += vx6;
-            label6.Top += vy6;
-            label7.Left += vx7;
-            label7.Top += vy7;
+            label1.Left += vx[0];
+            label1.Top += vy[0];
+            label6.Left += vx[1];
+            label6.Top += vy[1];
+            label7.Left += vx[2];
+            label7.Top += vy[2];
 
             if (label1.Left < 0) {
-                vx = Math.Abs(vx);
+                vx[0] = Math.Abs(vx[0]);
             }
             if (label1.Top < 0)
             {
-                vy = Math.Abs(vy);
+                vy[0] = Math.Abs(vy[0]);
             }
             if (label1.Left > ClientSize.Width-label1.Width)
             {
-                vx = -Math.Abs(vx);
+                vx[0] = -Math.Abs(vx[0]);
             }
             if (label1.Top > ClientSize.Height-label1.Height)
             {
-                vy = -Math.Abs(vy);
+                vy[0] = -Math.Abs(vy[0]);
             }
 
 
             if (label6.Left < 0)
             {
-                vx6 = Math.Abs(vx6);
+                vx[1] = Math.Abs(vx[1]);
             }
             if (label6.Top < 0)
             {
-                vy6 = Math.Abs(vy6);
+                vy[1] = Math.Abs(vy[1]);
             }
             if (label6.Left > ClientSize.Width - label6.Width)
             {
-                vx6 = -Math.Abs(vx6);
+                vx[1] = -Math.Abs(vx[1]);
             }
             if (label6.Top > ClientSize.Height - label6.Height)
             {
-                vy6 = -Math.Abs(vy6);
+                vy[1] = -Math.Abs(vy[1]);
             }
 
 
             if (label7.Left < 0)
             {
-                vx7 = Math.Abs(vx7);
+                vx[2] = Math.Abs(vx[2]);
             }
             if (label7.Top < 0)
             {
-                vy7 = Math.Abs(vy7);
+                vy[2] = Math.Abs(vy[2]);
             }
             if (label7.Left > ClientSize.Width - label7.Width)
             {
-                vx7 = -Math.Abs(vx7);
+                vx[2] = -Math.Abs(vx[2]);
             }
             if (label7.Top > ClientSize.Height - label7.Height)
             {
-                vy7 = -Math.Abs(vy7);
+                vy[2] = -Math.Abs(vy[2]);
             }
 
 
@@ -141,12 +138,15 @@ namespace move_labels
             InitializeComponent();
 
             // vx,vyに乱数を求める
-            vx = rand.Next(-10, 11);
-            vy = rand.Next(-10, 11);
-            vx6 = rand.Next(-10, 11);
-            vy6 = rand.Next(-10, 11);
-            vx7 = rand.Next(-10, 11);
-            vy7 = rand.Next(-10, 11);
+            int idx = 0;
+            vx[idx] = rand.Next(-10, 11);
+            vy[idx] = rand.Next(-10, 11);
+            idx = 1;
+            vx[idx] = rand.Next(-10, 11);
+            vy[idx] = rand.Next(-10, 11);
+            idx = 2;
+            vx[idx] = rand.Next(-10, 11);
+            vy[idx] = rand.Next(-10, 11);
             // ラベルのLeftとTopに乱数を入れる
             label1.Left = rand.Next(ClientSize.Width - label1.Width);
             label1.Top = rand.Next(ClientSize.Height - label1.Height);
