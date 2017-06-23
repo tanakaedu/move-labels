@@ -16,6 +16,8 @@ namespace move_labels
         int[] vx = new int[3];
         int[] vy = new int[3];
         int iTime = 0;
+        Label[] labels = new Label[3];
+
         private static Random rand = new Random();
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -35,14 +37,14 @@ namespace move_labels
             //// 変換したフォーム座標は、cpos.X、cpos.Yで取り出せる。            
             label2.Text = "" + cpos.X + "," + cpos.Y;
             label3.Text = "" + MousePosition.X + "," + MousePosition.Y;
-            
+
             // 新しく作ったラベルをマウスカーソルの場所に移動
             // それができたら、マウスカーソルがそのラベルの中心を指すようにする
             // (オフセット、ピボット(Pivot)などの概念)
-            label4.Left = cpos.X-label4.Width/2;
-            label4.Top = cpos.Y-label4.Height/2;
-            
-            
+            label4.Left = cpos.X - label4.Width / 2;
+            label4.Top = cpos.Y - label4.Height / 2;
+
+
             // label1.Left = label1.Left + vx;
             label1.Left += vx[0];
             label1.Top += vy[0];
@@ -51,18 +53,19 @@ namespace move_labels
             label7.Left += vx[2];
             label7.Top += vy[2];
 
-            if (label1.Left < 0) {
+            if (label1.Left < 0)
+            {
                 vx[0] = Math.Abs(vx[0]);
             }
             if (label1.Top < 0)
             {
                 vy[0] = Math.Abs(vy[0]);
             }
-            if (label1.Left > ClientSize.Width-label1.Width)
+            if (label1.Left > ClientSize.Width - label1.Width)
             {
                 vx[0] = -Math.Abs(vx[0]);
             }
-            if (label1.Top > ClientSize.Height-label1.Height)
+            if (label1.Top > ClientSize.Height - label1.Height)
             {
                 vy[0] = -Math.Abs(vy[0]);
             }
@@ -104,11 +107,12 @@ namespace move_labels
             }
 
 
-            if (    (cpos.X > label1.Left)
-                &&  (cpos.X < label1.Right)
-                &&  (cpos.Y > label1.Top)
-                &&  (cpos.Y < label1.Bottom)
-                ) {
+            if ((cpos.X > label1.Left)
+                && (cpos.X < label1.Right)
+                && (cpos.Y > label1.Top)
+                && (cpos.Y < label1.Bottom)
+                )
+            {
                 label1.Visible = false;
             }
 
@@ -123,10 +127,10 @@ namespace move_labels
             }
 
             if ((cpos.X > label7.Left)
-    && (cpos.X < label7.Right)
-    && (cpos.Y > label7.Top)
-    && (cpos.Y < label7.Bottom)
-    )
+                && (cpos.X < label7.Right)
+                && (cpos.Y > label7.Top)
+                && (cpos.Y < label7.Bottom)
+                )
             {
                 label7.Visible = false;
             }
@@ -138,23 +142,23 @@ namespace move_labels
             InitializeComponent();
 
             // vx,vyに乱数を求める
-            int idx = 0;
-            vx[idx] = rand.Next(-10, 11);
-            vy[idx] = rand.Next(-10, 11);
-            idx = 1;
-            vx[idx] = rand.Next(-10, 11);
-            vy[idx] = rand.Next(-10, 11);
-            idx = 2;
-            vx[idx] = rand.Next(-10, 11);
-            vy[idx] = rand.Next(-10, 11);
-            // ラベルのLeftとTopに乱数を入れる
-            label1.Left = rand.Next(ClientSize.Width - label1.Width);
-            label1.Top = rand.Next(ClientSize.Height - label1.Height);
-            label6.Left = rand.Next(ClientSize.Width - label6.Width);
-            label6.Top = rand.Next(ClientSize.Height - label6.Height);
-            label7.Left = rand.Next(ClientSize.Width - label7.Width);
-            label7.Top = rand.Next(ClientSize.Height - label7.Height);
+            // 冗長（じょうちょう）だったコードをまとめることができた
+            // 冗長＝同じものが繰り返される様
+            for (int idx = 0; idx < 3; idx++)
+            {
+                vx[idx] = rand.Next(-10, 11);
+                vy[idx] = rand.Next(-10, 11);
 
+                // ラベルを生成
+                labels[idx] = new Label();
+                labels[idx].AutoSize = true;  // 幅と高さを自動制御
+                labels[idx].Text = "◆";
+                // フォームに配置
+                Controls.Add(labels[idx]);
+
+                labels[idx].Left = rand.Next(ClientSize.Width - labels[idx].Width);
+                labels[idx].Top = rand.Next(ClientSize.Height - labels[idx].Height);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -179,6 +183,14 @@ namespace move_labels
             // NextDouble()の最大値=0.99999999・・・
             Text += "/" + (int)(rand.NextDouble() * 6 + 1);
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            for (int idx = 0; idx < 3; idx++)
+            {
+                MessageBox.Show("" + idx);
+            }
         }
 
     }
