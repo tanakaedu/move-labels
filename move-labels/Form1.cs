@@ -15,6 +15,7 @@ namespace move_labels
         int vx = -15;
         int vy = -15;
         int iTime = 0;
+        private static Random rand = new Random();
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -79,6 +80,38 @@ namespace move_labels
         public Form1()
         {
             InitializeComponent();
+
+            // vx,vyに乱数を求める
+            vx = rand.Next(-10, 11);
+            vy = rand.Next(-10, 11);
+            // ラベルのLeftとTopに乱数を入れる
+            label1.Left = rand.Next(ClientSize.Width - label1.Width);
+            label1.Top = rand.Next(ClientSize.Height - label1.Height);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // 0以上、intの範囲内の乱数
+            Text = "" + rand.Next();
+            // さいころの目の例(実用ではないが、知識として知っておくこと)
+            Text += "," + ((rand.Next() % 6) + 1);
+
+            // 0以上、指定の値「未満」の乱数
+            // 以下は、0～5までの乱数
+            Text += "/" + rand.Next(6);
+
+            // 指定の値以上、指定の値「未満」の乱数
+            // 以下は、1～6までの乱数
+            Text += "/" + rand.Next(1, 7);
+
+            // 0～1未満の乱数
+            Text += "/" + rand.NextDouble();
+            // NextDoubleを使って、1～6の乱数を算出するには？
+            // NextDouble()の最小値=0
+            // NextDouble()の最大値=0.99999999・・・
+            Text += "/" + (int)(rand.NextDouble() * 6 + 1);
+
         }
 
     }
